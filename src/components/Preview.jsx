@@ -2,19 +2,19 @@ import { useState } from "react";
 import axios from "axios";
 import Table from "./Table";
 
-export default function Preview(props) {
+export default function Preview({ data, documents }) {
 
   const userDataFields = [
     'Student Name',
     'Gender',
-    'Dob',
+    'DOB',
     'Blood Group',
     'Faculty Of',
     'Degree',
     'Course',
     'Year Of Admission',
     'Application Register No.',
-    'Student Phone No',
+    'Student Phone No.',
     'Student Email',
     'Student Aadhar No.',
     'Medium Of Instruction',
@@ -38,10 +38,13 @@ export default function Preview(props) {
     'Sibling Name',
     'Sibling Current Status',
     'Sibling Institution Name',
-    'Address Communication',
-    'Pin Code: Communication',
-    'Address Permanent',
-    'Pin Code: Permanent',
+    'Address for Communication',
+    'Pin Code: Address for Communication',
+    'Permanent Address',
+    'Pin Code: Permanent Address'
+  ];
+
+  const userDocumentFields = [
     'Student Photo',
     'Father Photo',
     'Mother Photo',
@@ -58,15 +61,25 @@ export default function Preview(props) {
     "Affidavit by Parent"
   ];
 
-  const data = { ...props };
+  const userDataValues = data;
 
-  const datas = Object.keys(data).map((step, i) => {
+  const userDocumentValues = { ...documents };
+
+  const userDocuments = new FormData();
+
+  Object.keys(userDocumentValues).map((step) => {
+    return userDocuments.append("files", userDocumentValues[step])
+  })
+
+  const tableBorder = "border-[3px] border-gray-300 p-1";
+
+  const DisplayFormData = Object.keys(userDataValues).map((step, i) => {
     return (
-      <Table key={step} keyy={userDataFields[i]} value={data[step]} status={!data[step] ? (<span className="text-red-500 text-lg font-medium">&#40;?&#41;</span>) : (<span className="text-green-500 text-xl font-bold">&#10003;</span>)} />
+      <Table key={step} keyy={userDataFields[i]} value={userDataValues[step]} status={!data[step] ? (<span className="text-red-500 text-lg font-medium">&#40;?&#41;</span>) : (<span className="text-green-500 text-xl font-bold">&#10003;</span>)} />
     );
   });
 
-  const tableBorder = "border-[3px] border-gray-300 p-1";
+  console.log(userDocumentFields);
 
   const [checkBox, setCheckBox] = useState(false);
 
@@ -76,50 +89,53 @@ export default function Preview(props) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (checkBox === false) {
-      alert("Verify & Agree Before Submission!");
-      return;
-    }
 
-    axios.post(`${process.env.REACT_APP_API_URL}/api/upload`, { data })
+    const regNumber = data.ApplicationNumber;
+    axios.post(`${process.env.REACT_APP_API_URL}/api/upload/${regNumber}`, userDocuments, {
+      headers: {
+        'content-type': 'multipart/form-data',
+      }
+    })
       .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        alert(err);
-      });
-
-    axios.post(`${process.env.REACT_APP_API_URL}/api/submit`, { data })
-      .then(res => {
-        if (res.data === 'Data Added') {
-          window.location.href = '/success'
+        if (res.status === 200) {
+          axios.post(`${process.env.REACT_APP_API_URL}/api/submit`, { data })
+            .then(res => {
+              if (res.data === 'Data Added') {
+                window.location.href = '/success'
+              }
+              else alert(res.data);
+            })
+            .catch(err => {
+              alert(err);
+            });
         }
-        else alert(res.data);
       })
       .catch(err => {
-        alert(err);
+        console.log(err);
+        alert("File(s) size is larger than 2MB");
       });
   }
+
   return (
     <form className="flex flex-col gap-6 py-6" onSubmit={submitHandler}>
       <p className="font-lg font-semibold">Here&apos;s the preview of your form, kindly check before submission.</p>
-      <table className={`text-center text-sm md:text-base w-full ${tableBorder}`}>
+      <table className={`text-sm md:text-base w-full ${tableBorder}`}>
         <tbody>
           <tr>
-            <th className={`${tableBorder} font-bold bg-blue-500/20 md:px-20`}>FIELD</th>
-            <th className={`${tableBorder} font-semibold bg-blue-500/20 px-6 md:px-16`}>ENTERED VALUE</th>
+            <th className={`${tableBorder} font-semibold bg-blue-500/20`}>FIELD</th>
+            <th className={`${tableBorder} font-semibold bg-blue-500/20 md:px-20`}>ENTERED VALUE</th>
             <th className={`${tableBorder} font-semibold bg-blue-500/20`}>STATUS</th>
           </tr>
         </tbody>
         <tbody>
-          {datas}
+          {DisplayFormData}
         </tbody>
       </table>
       <div className="flex gap-2 items-start px-2">
         <input type="checkbox" name="confirmation" className="border-2 w-fit mt-[5px]" onChange={handleCheckBox} />
-        <label htmlFor="confirmation" className="font-medium px-4">I assure that the above all details and documents are genuine and if found falsified, I understand that my admission will stand forfeited.</label>
+        <label htmlFor="confirmation" className="font-medium px-4 text-sm md:text-base">I assure that the above all details and documents are genuine and if found falsified, I understand that my admission will stand forfeited.</label>
       </div>
-      <button type="submit" className="bg-green-500 text-white hover:bg-green-600 border-2 border-green-500 hover:border-green-600 uppercase py-2 px-4 rounded-xl font-semibold cursor-pointer transition duration-200 ease-in-out w-fit mx-auto">Submit</button>
+      <button type="submit" className={`bg-green-500 text-white hover:bg-green-600 border-2 border-green-500 hover:border-green-600 uppercase py-2 px-4 rounded-xl font-semibold cursor-pointer transition duration-200 ease-in-out w-fit mx-auto ${!checkBox && 'pointer-events-none opacity-50 cursor-not-allowed'}`}>Submit</button>
     </form>
   )
 };

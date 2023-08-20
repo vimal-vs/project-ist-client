@@ -25,7 +25,6 @@ const FORM_DATA = {
   StudentAadhar: "",
   MediumOfInstruction: "",
   StudentIs: "",
-  // ***** //
   Nationality: "",
   Religion: "",
   Community: "",
@@ -51,15 +50,40 @@ const FORM_DATA = {
   PermanentPincode: "",
 }
 
+const FORM_DOCUMENTS = {
+  StudentPhoto: [],
+  FatherGaurdianPhoto: [],
+  MotherPhoto: [],
+  StudentSign: [],
+  ParentSign: [],
+  TransferCertificate: [],
+  SSLCCertificate: [],
+  HSCFirstYearCertificate: [],
+  HSCSecondYearCertificate: [],
+  MigrationCertificate: [],
+  CommunityCertificate: [],
+  ProvisionalAllotment: [],
+  AffidavitStudent: [],
+  AffidavitParent: [],
+}
+
 export default function Home() {
 
   const [data, setData] = useState(FORM_DATA);
+  const [documents, setDocuments] = useState(FORM_DOCUMENTS);
 
   const updateFields = (fields) => {
     setData(prev => {
       return { ...prev, ...fields }
     })
   }
+
+  const updateDocuments = (event) => {
+    setDocuments(prev => {
+      return { ...prev, ...event }
+    })
+  }
+
 
   const progress = [
     "Instructions",
@@ -71,12 +95,12 @@ export default function Home() {
   ];
 
   const formComponents = [
-    <Instructions updateFields={updateFields} />,
+    <Instructions />,
     <BasicForm {...data} updateFields={updateFields} />,
-    <PersonalForm {...data} updateFields={updateFields} />,
-    <Documents {...data} updateFields={updateFields} />,
-    <Undertaking {...data} updateFields={updateFields} />,
-    <Preview {...data} />
+    <PersonalForm {...data} updateFields={updateFields} {...documents} updateDocuments={updateDocuments} />,
+    <Documents {...documents} updateDocuments={updateDocuments} />,
+    <Undertaking {...documents} updateDocuments={updateDocuments} />,
+    <Preview data={data} documents={documents} />
   ];
 
   const { currentStepIndex, step, isFirstStep, isLastStep, back, next } = useMultiStepForm([...formComponents]);
@@ -97,13 +121,13 @@ export default function Home() {
         <div className="container horizontal mt-5">
           <Progress steps={progress} curStep={currentStepIndex} />
         </div>
-        <div className="mt-2 px-6 md:mt-20 md:px-10" onSubmit={handleSubmit}>
+        <form className="mt-2 px-6 md:mt-20 md:px-10" onSubmit={handleSubmit}>
           {step}
           <div className="flex justify-around pb-6">
             {!isFirstStep && <button type="button" onClick={back} className={backBtnStyle}>Back</button>}
-            {!isLastStep && <button type="submit" onClick={next} className={nextBtnStyle}>{isFirstStep ? "Proceed to form" : "Next"}</button>}
+            {!isLastStep && <button type="submit" className={nextBtnStyle}>{isFirstStep ? "Proceed to form" : "Next"}</button>}
           </div>
-        </div>
+        </form>
       </div>
     </>
   )
