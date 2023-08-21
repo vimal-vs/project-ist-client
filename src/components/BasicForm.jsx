@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 export default function BasicForm({
     StudentName,
     Gender,
@@ -19,15 +17,11 @@ export default function BasicForm({
 }) {
 
     const inputFieldStyle = "px-2 py-[1px] border-2 border-slate-300 rounded-md -webkit:appearance-none	";
-    const selectStyle = "shadow-md shadow-gray-200";
+    const selectStyle = "shadow-sm shadow-gray-200";
     const mandateComponent = <span className="text-red-500 text-lg">&#42;</span>;
 
     const currentYear = new Date().getFullYear();
     var currentDate = new Date().toISOString().split('T')[0];
-
-    useEffect(() => {
-        updateFields({ FacultyOf: "Engineering & Technology", Degree: "B.Tech", YearOfAdmission: currentYear });
-    }, [updateFields, currentYear]);
 
     return (
         <div className="flex flex-col gap-4 px-4">
@@ -57,13 +51,13 @@ export default function BasicForm({
                 </div>
                 <div>
                     <label htmlFor="faculty_of">Faculty of{mandateComponent} : </label>
-                    <select name="faculty_of" className={`${inputFieldStyle} ${selectStyle} w-max`} defaultValue={"e&t"}>
+                    <select name="faculty_of" className={`${inputFieldStyle} ${selectStyle}`} defaultValue={"e&t"}>
                         <option value="e&t">Engineering And Technology</option>
                     </select>
                 </div>
                 <div>
                     <label htmlFor="degree">Degree{mandateComponent} : </label>
-                    <select name="degree" className={`${inputFieldStyle} ${selectStyle}`} value={Degree} onChange={e => updateFields({ Degree: e.target.value })} required>
+                    <select name="degree" className={`${inputFieldStyle} ${selectStyle}`} defaultValue={"btech"} required>
                         <option value="btech">B.Tech</option>
                     </select>
                 </div>
@@ -95,7 +89,7 @@ export default function BasicForm({
                 </div>
                 <div>
                     <label htmlFor="student_email">Student Email Id{mandateComponent} : </label>
-                    <input name="student_email" type="text" className={inputFieldStyle} value={StudentMailId} onChange={e => updateFields({ StudentMailId: e.target.value })} required />
+                    <input name="student_email" type="email" className={inputFieldStyle} value={StudentMailId} onChange={e => updateFields({ StudentMailId: e.target.value })} required />
                 </div>
                 <div>
                     <label htmlFor="student_aadhar_no">Student Aadhar No.{mandateComponent} : </label>
@@ -105,7 +99,7 @@ export default function BasicForm({
                     <label htmlFor="medium_of_instruction">Medium of Instruction in HSC{mandateComponent} : </label>
                     <input name="medium_of_instruction" type="text" className={inputFieldStyle} value={MediumOfInstruction} onChange={e => updateFields({ MediumOfInstruction: e.target.value })} required />
                 </div>
-                <div className="flex gap-2 md:gap-4">
+                <div className="flex gap-2">
                     <p>Student is{mandateComponent} : </p>
                     <select name="student_is" className={`${inputFieldStyle} ${selectStyle}`} value={StudentIs || "default"} onChange={e => updateFields({ StudentIs: e.target.value })} required>
                         <option value="default" disabled>Select</option>

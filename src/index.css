@@ -2,10 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background: rgb(244, 244, 244);
+@font-face {
+  font-family: 'Poppins';
+  src: local('Poppins'), url(./fonts/Poppins-Regular.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'WorkSans';
+  src: local('WorkSans'), url(./fonts/WorkSans-Regular.ttf) format('truetype');
+}
+
+body {
+  background: rgb(244, 244, 244);
+}
+
+/* For other Browsers */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

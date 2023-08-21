@@ -10,15 +10,17 @@ import Documents from "./components/Documents";
 import Preview from "./components/Preview";
 import useMultiStepForm from "./hooks/useMultiStepForm";
 
+const currentYear = new Date().getFullYear();
+
 const FORM_DATA = {
   StudentName: "",
   Gender: "",
   Dob: "",
   BloodGroup: "",
-  FacultyOf: "",
-  Degree: "",
+  FacultyOf: "Engineering & Technology",
+  Degree: "B.Tech",
   Course: "",
-  YearOfAdmission: "",
+  YearOfAdmission: currentYear,
   ApplicationNumber: "",
   StudentMobileNumber: "",
   StudentMailId: "",
@@ -54,17 +56,17 @@ const FORM_DOCUMENTS = {
   StudentPhoto: [],
   FatherGaurdianPhoto: [],
   MotherPhoto: [],
-  StudentSign: [],
-  ParentSign: [],
+  StudentSignature: [],
+  ParentSignature: [],
   TransferCertificate: [],
   SSLCCertificate: [],
   HSCFirstYearCertificate: [],
   HSCSecondYearCertificate: [],
   MigrationCertificate: [],
   CommunityCertificate: [],
-  ProvisionalAllotment: [],
-  AffidavitStudent: [],
-  AffidavitParent: [],
+  ProvisionalAllotmentLetter: [],
+  AffidavitByStudent: [],
+  AffidavitByParent: [],
 }
 
 export default function Home() {
@@ -121,13 +123,13 @@ export default function Home() {
         <div className="container horizontal mt-5">
           <Progress steps={progress} curStep={currentStepIndex} />
         </div>
-        <form className="mt-2 px-6 md:mt-20 md:px-10" onSubmit={handleSubmit}>
+        <div className="mt-2 px-6 md:mt-20 md:px-10" onSubmit={handleSubmit}>
           {step}
           <div className="flex justify-around pb-6">
             {!isFirstStep && <button type="button" onClick={back} className={backBtnStyle}>Back</button>}
-            {!isLastStep && <button type="submit" className={nextBtnStyle}>{isFirstStep ? "Proceed to form" : "Next"}</button>}
+            {!isLastStep && <button type="submit" onClick={next} className={nextBtnStyle}>{isFirstStep ? "Proceed to form" : "Next"}</button>}
           </div>
-        </form>
+        </div>
       </div>
     </>
   )

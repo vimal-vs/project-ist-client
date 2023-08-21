@@ -26,14 +26,15 @@ export default function PersonalForm({
   StudentPhoto,
   FatherGaurdianPhoto,
   MotherPhoto,
-  StudentSign,
-  ParentSign,
+  StudentSignature,
+  ParentSignature,
   updateDocuments
 }) {
 
-  const fileStyle = "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-900 file:text-white hover:file:bg-yellow-500";
+  const fileStyle = "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-900 file:text-white hover:file:bg-yellow-500 overflow-hidden w-28";
   const inputFieldStyle = "px-2 py-[1px] border-2 border-slate-200 rounded-md";
   const mandateComponent = <span className="text-red-500 text-lg">&#42;</span>;
+  const fileNameStyle = "font-semibold text-blue-900 text-sm italic";
 
   const redirectJPG = () => {
     window.open("https://compressjpeg.com", "_blank")
@@ -50,14 +51,14 @@ export default function PersonalForm({
       <div className="flex flex-col justify-center gap-4 py-6 mb-10">
         <div>
           <label htmlFor="nationality">Nationality{mandateComponent} : </label>
-          <select name="nationality" className={inputFieldStyle} value={Nationality || "default"} onChange={e => updateFields({ Nationality: e.target.value })} required>
+          <select name="nationality" className={inputFieldStyle} value={Nationality || "default"} onChange={e => updateFields({ Nationality: e.target.value })} autoFocus required>
             <option value="default" disabled>Select</option>
             <option value="india">India</option>
           </select>
         </div>
         <div>
           <label htmlFor="religion">Religion{mandateComponent} : </label>
-          <input name="religion" type="text" className={inputFieldStyle} value={Religion} onChange={e => updateFields({ Religion: e.target.value })} autoFocus required />
+          <input name="religion" type="text" className={inputFieldStyle} value={Religion} onChange={e => updateFields({ Religion: e.target.value })} required />
         </div>
         <div>
           <label htmlFor="community">Communtiy{mandateComponent}: </label>
@@ -78,13 +79,12 @@ export default function PersonalForm({
         </div>
         <div>
           <label htmlFor="identification_mark_two">Identification Mark 2 : </label>
-          <input name="identification_mark_two" type="text" className={inputFieldStyle} value={IndentificationMark2} onChange={e => updateFields({ IndentificationMark2: e.target.value })} required />
+          <input name="identification_mark_two" type="text" className={inputFieldStyle} value={IndentificationMark2} onChange={e => updateFields({ IndentificationMark2: e.target.value })} />
         </div>
         <div>
           <label htmlFor="allergic_to">Allergic to (food/medication/others){mandateComponent} : </label>
           <input name="allergic_to" type="text" className={inputFieldStyle} value={AllergicTo} onChange={e => updateFields({ AllergicTo: e.target.value })} required />
         </div>
-
         <div>
           <label htmlFor="father_name">Father&apos;s Name{mandateComponent} : </label>
           <input name="father_name" type="text" className={inputFieldStyle} value={FatherName} onChange={e => updateFields({ FatherName: e.target.value })} required />
@@ -103,7 +103,7 @@ export default function PersonalForm({
         </div>
         <div>
           <label htmlFor="father_mail_id">Father&apos;s Mail Id{mandateComponent} : </label>
-          <input name="father_mail_id" type="text" className={inputFieldStyle} value={FatherMailId} onChange={e => updateFields({ FatherMailId: e.target.value })} required />
+          <input name="father_mail_id" type="email" className={inputFieldStyle} value={FatherMailId} onChange={e => updateFields({ FatherMailId: e.target.value })} required />
         </div>
         <div>
           <label htmlFor="mother_name">Mother&apos;s Name{mandateComponent} : </label>
@@ -123,7 +123,7 @@ export default function PersonalForm({
         </div>
         <div>
           <label htmlFor="mother_mail_id">Mother&apos;s Mail Id{mandateComponent} : </label>
-          <input name="mother_mail_id" type="text" className={inputFieldStyle} value={MotherMailId} onChange={e => updateFields({ MotherMailId: e.target.value })} required />
+          <input name="mother_mail_id" type="email" className={inputFieldStyle} value={MotherMailId} onChange={e => updateFields({ MotherMailId: e.target.value })} required />
         </div>
         <div>
           <label htmlFor="sibling_name">Sibling&apos;s Name : </label>
@@ -159,30 +159,44 @@ export default function PersonalForm({
         </div>
         <div className="flex flex-col gap-4 mt-6">
           <div className="flex flex-col gap-2">
-            <p className="w-fit font-medium">Upload the respective photos and make sure that the file is of .JPG and file size is less than 1MB.</p>
-            <button onClick={redirectJPG} className="w-max mt-2 underline text-blue-600 text-sm md:text-base">Link to Compress your PDFs down to 1MB</button>
+            <p className="w-fit font-medium">Upload the respective photos and make sure that the file is of .JPG and file size is less than 2MB.</p>
+            <button onClick={redirectJPG} className="w-fit text-start mt-2 underline text-blue-900 text-sm md:text-base">Link to Compress your PDFs down to 1MB</button>
           </div>
-          <div className="flex flex-wrap gap-4 pt-6">
-            <div className="flex flex-col gap-3 w-max">
+          <div className="flex flex-wrap gap-10 pt-6">
+            <div className="flex flex-col gap-5 w-56">
               <label htmlFor="student_photo">Student&apos;s Photo{mandateComponent} : </label>
-              <input type="file" name="student_photo" accept=".jpg" className={fileStyle} onChange={e => updateDocuments({ StudentPhoto: e.target.files[0] })} required />
-            </div>
-            <div className="flex flex-col gap-3 w-max">
-              <label htmlFor="father_photo">Father&apos;s/Gaurdian&apos;s Photo{mandateComponent} : </label>
-              <input type="file" name="father_photo" accept=".jpg" className={fileStyle} onChange={e => updateDocuments({ FatherGaurdianPhoto: e.target.files[0] })} required />
-            </div>
-            <div className="flex flex-col gap-3 w-max">
-              <label htmlFor="mother_photo">Mother&apos;s Photo{mandateComponent} : </label>
-              <input type="file" name="mother_photo" accept=".jpg" className={fileStyle} onChange={e => updateDocuments({ MotherPhoto: e.target.files[0] })} required />
-            </div>
-            <div className="flex flex-wrap gap-4 py-6">
-              <div className="flex flex-col gap-3 w-max">
-                <label htmlFor="student_signature">Student&apos;s Signature{mandateComponent} : </label>
-                <input type="file" name="student_signature" accept=".jpg" className={fileStyle} onChange={e => updateDocuments({ StudentSign: e.target.files[0] })} required />
+              <div className="flex flex-col gap-2">
+                <input type="file" name="student_photo" accept=".jpg" className={fileStyle}
+                  onChange={e => updateDocuments({ StudentPhoto: e.target.files[0] })} />
+                <p className={fileNameStyle}>{StudentPhoto?.name}</p>
               </div>
-              <div className="flex flex-col gap-3 w-max">
-                <label htmlFor="parent_signature">Parent&apos;s/Gaurdian&apos;s Signature{mandateComponent} : </label>
-                <input type="file" name="parent_signature" accept=".jpg" className={fileStyle} onChange={e => updateDocuments({ ParentSign: e.target.files[0] })} required />
+            </div>
+            <div className="flex flex-col gap-5 w-56">
+              <label htmlFor="father_photo">Father&apos;s/Gaurdian&apos;s Photo{mandateComponent} : </label>
+              <div className="flex flex-col gap-2">
+                <input type="file" name="father_photo" accept=".jpg" className={fileStyle} onChange={e => updateDocuments({ FatherGaurdianPhoto: e.target.files[0] })} />
+                <p className={fileNameStyle}>{FatherGaurdianPhoto?.name}</p>
+              </div>
+            </div>
+            <div className="flex flex-col gap-5 w-56">
+              <label htmlFor="mother_photo">Mother&apos;s Photo{mandateComponent} : </label>
+              <div className="flex flex-col gap-2">
+                <input type="file" name="mother_photo" accept=".jpg" className={fileStyle} onChange={e => updateDocuments({ MotherPhoto: e.target.files[0] })} />
+                <p className={fileNameStyle}>{MotherPhoto?.name}</p>
+              </div>
+            </div>
+            <div className="flex flex-col gap-5 w-56">
+              <label htmlFor="student_signature">Student&apos;s Signature{mandateComponent} : </label>
+              <div className="flex flex-col gap-2">
+                <input type="file" name="student_signature" accept=".jpg" className={fileStyle} onChange={e => updateDocuments({ StudentSignature: e.target.files[0] })} />
+                <p className={fileNameStyle}>{StudentSignature?.name}</p>
+              </div>
+            </div>
+            <div className="flex flex-col gap-5 w-56">
+              <label htmlFor="parent_signature">Parent&apos;s/Gaurdian&apos;s Signature{mandateComponent} : </label>
+              <div className="">
+                <input type="file" name="parent_signature" accept=".jpg" className={fileStyle} onChange={e => updateDocuments({ ParentSignature: e.target.files[0] })} />
+                <p className={fileNameStyle}>{ParentSignature?.name}</p>
               </div>
             </div>
           </div>

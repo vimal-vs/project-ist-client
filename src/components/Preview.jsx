@@ -4,6 +4,8 @@ import Table from "./Table";
 
 export default function Preview({ data, documents }) {
 
+  const tableBorder = "border-[1px] border-blue-900 p-1";
+
   const userDataFields = [
     'Student Name',
     'Gender',
@@ -45,20 +47,20 @@ export default function Preview({ data, documents }) {
   ];
 
   const userDocumentFields = [
-    'Student Photo',
-    'Father Photo',
-    'Mother Photo',
-    'Student Signature',
-    'Parent Signature',
-    'Transfer Certificate',
-    'SSLC Certificate',
-    'HSC First Year',
-    'HSC Second Year',
-    'Migration Certificate',
-    'Community Certificate',
-    'Provisional Allotment Letter',
-    "Affidavit by Student",
-    "Affidavit by Parent"
+    'StudentPhoto',
+    'FatherGaurdianPhoto',
+    'MotherPhoto',
+    'StudentSignature',
+    'ParentSignature',
+    'TransferCertificate',
+    'SSLCCertificate',
+    'HSCFirstYearCertificate',
+    'HSCSecondYearCertificate',
+    'MigrationCertificate',
+    'CommunityCertificate',
+    'ProvisionalAllotmentLetter',
+    "AffidavitByStudent",
+    "AffidavitByParent"
   ];
 
   const userDataValues = data;
@@ -67,11 +69,9 @@ export default function Preview({ data, documents }) {
 
   const userDocuments = new FormData();
 
-  Object.keys(userDocumentValues).map((step) => {
-    return userDocuments.append("files", userDocumentValues[step])
+  Object.keys(userDocumentValues).map((step, i) => {
+    return userDocuments.append(userDocumentFields[i], userDocumentValues[step]);
   })
-
-  const tableBorder = "border-[3px] border-gray-300 p-1";
 
   const DisplayFormData = Object.keys(userDataValues).map((step, i) => {
     return (
@@ -79,16 +79,13 @@ export default function Preview({ data, documents }) {
     );
   });
 
-  console.log(userDocumentFields);
-
   const [checkBox, setCheckBox] = useState(false);
 
   const handleCheckBox = (e) => {
     (e.target.checked) ? setCheckBox(true) : setCheckBox(false);
   }
 
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const submitHandler = () => {
 
     const regNumber = data.ApplicationNumber;
     axios.post(`${process.env.REACT_APP_API_URL}/api/upload/${regNumber}`, userDocuments, {
@@ -98,10 +95,10 @@ export default function Preview({ data, documents }) {
     })
       .then(res => {
         if (res.status === 200) {
-          axios.post(`${process.env.REACT_APP_API_URL}/api/submit`, { data })
+          axios.post(`${process.env.REACT_APP_API_URL}/api/submit/${regNumber}`, { data })
             .then(res => {
               if (res.data === 'Data Added') {
-                window.location.href = '/success'
+                window.location.href = '/success';
               }
               else alert(res.data);
             })
@@ -111,20 +108,19 @@ export default function Preview({ data, documents }) {
         }
       })
       .catch(err => {
-        console.log(err);
-        alert("File(s) size is larger than 2MB");
+        alert(err);
       });
   }
 
   return (
-    <form className="flex flex-col gap-6 py-6" onSubmit={submitHandler}>
+    <div className="flex flex-col gap-6 py-6">
       <p className="font-lg font-semibold">Here&apos;s the preview of your form, kindly check before submission.</p>
       <table className={`text-sm md:text-base w-full ${tableBorder}`}>
         <tbody>
           <tr>
-            <th className={`${tableBorder} font-semibold bg-blue-500/20`}>FIELD</th>
-            <th className={`${tableBorder} font-semibold bg-blue-500/20 md:px-20`}>ENTERED VALUE</th>
-            <th className={`${tableBorder} font-semibold bg-blue-500/20`}>STATUS</th>
+            <th className={`${tableBorder} text-white font-semibold bg-blue-900`}>FIELD</th>
+            <th className={`${tableBorder} text-white font-semibold bg-blue-900 md:px-20`}>ENTERED VALUE</th>
+            <th className={`${tableBorder} text-white font-semibold bg-blue-900`}>STATUS</th>
           </tr>
         </tbody>
         <tbody>
@@ -135,7 +131,7 @@ export default function Preview({ data, documents }) {
         <input type="checkbox" name="confirmation" className="border-2 w-fit mt-[5px]" onChange={handleCheckBox} />
         <label htmlFor="confirmation" className="font-medium px-4 text-sm md:text-base">I assure that the above all details and documents are genuine and if found falsified, I understand that my admission will stand forfeited.</label>
       </div>
-      <button type="submit" className={`bg-green-500 text-white hover:bg-green-600 border-2 border-green-500 hover:border-green-600 uppercase py-2 px-4 rounded-xl font-semibold cursor-pointer transition duration-200 ease-in-out w-fit mx-auto ${!checkBox && 'pointer-events-none opacity-50 cursor-not-allowed'}`}>Submit</button>
-    </form>
+      <button onClick={submitHandler} className={`bg-green-500 text-white hover:bg-green-600 border-2 border-green-500 hover:border-green-600 uppercase py-2 px-4 rounded-xl font-semibold cursor-pointer transition duration-200 ease-in-out w-fit mx-auto ${!checkBox && 'pointer-events-none opacity-50 cursor-not-allowed'}`}>Submit</button>
+    </div>
   )
 };
