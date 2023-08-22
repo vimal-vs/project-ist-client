@@ -85,7 +85,7 @@ export default function BasicForm({
                 </div>
                 <div>
                     <label htmlFor="student_phone_no">Student Mobile No.{mandateComponent} : </label>
-                    <input name="student_phone_no" type="text" className={inputFieldStyle} value={StudentMobileNumber} pattern=".{10,}" onChange={e => updateFields({ StudentMobileNumber: e.target.value })} required />
+                    <input name="student_phone_no" type="text" className={inputFieldStyle} value={StudentMobileNumber} pattern="[0-9]{10,}" onChange={e => updateFields({ StudentMobileNumber: e.target.value })} required />
                 </div>
                 <div>
                     <label htmlFor="student_email">Student Email Id{mandateComponent} : </label>
@@ -93,7 +93,7 @@ export default function BasicForm({
                 </div>
                 <div>
                     <label htmlFor="student_aadhar_no">Student Aadhar No.{mandateComponent} : </label>
-                    <input name="student_aadhar_no" type="text" className={inputFieldStyle} value={StudentAadhar} pattern=".{12,}" onChange={e => updateFields({ StudentAadhar: e.target.value })} required />
+                    <input name="student_aadhar_no" type="text" className={inputFieldStyle} value={StudentAadhar} pattern="[0-9]{12,}" onChange={e => updateFields({ StudentAadhar: e.target.value })} required />
                 </div>
                 <div>
                     <label htmlFor="medium_of_instruction">Medium of Instruction in HSC{mandateComponent} : </label>

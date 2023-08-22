@@ -103,12 +103,18 @@ export default function Preview({ data, documents }) {
 
 
   const [checkBox, setCheckBox] = useState(false);
+  const [changeButton, setChangeButton] = useState(false);
 
   const handleCheckBox = (event) => {
     (event.target.checked) ? setCheckBox(true) : setCheckBox(false);
   }
 
   const submitHandler = () => {
+    setChangeButton(true);
+
+    setTimeout(() => {
+      setChangeButton(false);
+    }, 1000);
 
     const regNumber = data.ApplicationNumber;
 
@@ -200,7 +206,7 @@ export default function Preview({ data, documents }) {
         <input type="checkbox" name="confirmation" className="border-2 w-fit mt-[5px]" onChange={handleCheckBox} />
         <label htmlFor="confirmation" className="font-medium px-4 text-sm md:text-base">I assure that the above all details and documents are genuine and if found falsified, I understand that my admission will stand forfeited.</label>
       </div>
-      <button onClick={submitHandler} className={`bg-green-500 text-white hover:bg-green-600 border-2 border-green-500 hover:border-green-600 uppercase py-2 px-4 rounded-xl font-semibold cursor-pointer transition duration-200 ease-in-out w-fit mx-auto ${!checkBox && 'pointer-events-none opacity-50 cursor-not-allowed'}`}>Submit</button>
+      <button onClick={submitHandler} className={`bg-green-500 text-white hover:bg-green-600 border-2 border-green-500 hover:border-green-600 uppercase py-2 px-4 rounded-xl font-semibold cursor-pointer transition duration-200 ease-in-out w-fit mx-auto ${!checkBox && 'pointer-events-none opacity-50 cursor-not-allowed'}`}>{!changeButton ? "Submit" : "Loading..."}</button>
     </div>
   )
 };

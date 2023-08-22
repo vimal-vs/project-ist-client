@@ -116,7 +116,7 @@ export default function PersonalForm({
           </div>
           <div>
             <label htmlFor="father_phone_no">Father&apos;s Mobile Number{mandateComponent} : </label>
-            <input name="father_phone_no" type="number" className={inputFieldStyle} value={FatherMobileNumber} pattern=".{10,}" onChange={e => updateFields({ FatherMobileNumber: e.target.value })} required />
+            <input name="father_phone_no" type="tel" className={inputFieldStyle} value={FatherMobileNumber} pattern="[0-9]{10,}" onChange={e => updateFields({ FatherMobileNumber: e.target.value })} required />
           </div>
           <div>
             <label htmlFor="father_mail_id">Father&apos;s Mail Id{mandateComponent} : </label>
@@ -139,7 +139,7 @@ export default function PersonalForm({
           </div>
           <div>
             <label htmlFor="mother_phone_no">Mother&apos;s Mobile Number{mandateComponent} : </label>
-            <input name="mother_phone_no" type="number" className={inputFieldStyle} value={MotherMobileNumber} pattern=".{10,}" onChange={e => updateFields({ MotherMobileNumber: e.target.value })} required />
+            <input name="mother_phone_no" type="tel" className={inputFieldStyle} value={MotherMobileNumber} pattern="[0-9]{10,}" onChange={e => updateFields({ MotherMobileNumber: e.target.value })} required />
           </div>
           <div>
             <label htmlFor="mother_mail_id">Mother&apos;s Mail Id : </label>
