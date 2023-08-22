@@ -25,12 +25,12 @@ export default function BasicForm({
 
     return (
         <div className="flex flex-col gap-4 px-4">
-            <h2 className="text-center uppercase font-semibold text-xl underline underline-offset-4 py-4 md:hidden">Basic Information</h2>
+            <h2 className="text-center uppercase font-semibold text-xl underline underline-offset-4 py-4 decoration-yellow-500">Basic Information</h2>
             <p><b>Note</b> : Fields marked with {mandateComponent} are mandatory</p>
-            <div className="flex flex-col justify-center gap-4 py-6 mb-10">
+            <div className="flex flex-col justify-center gap-6 py-6 mb-10">
                 <div>
                     <label htmlFor="student_name">Name{mandateComponent} : </label>
-                    <input name="student_name" type="text" className={inputFieldStyle} value={StudentName} onChange={e => updateFields({ StudentName: e.target.value })} autoFocus required />
+                    <input name="student_name" type="text" className={inputFieldStyle} value={StudentName} pattern="[a-zA-Z ]*$" onChange={e => updateFields({ StudentName: e.target.value })} autoFocus required />
                 </div>
                 <div>
                     <label htmlFor="gender">Gender{mandateComponent} : </label>
@@ -47,7 +47,7 @@ export default function BasicForm({
                 </div>
                 <div>
                     <label htmlFor="blood_group">Blood Group{mandateComponent} : </label>
-                    <input name="blood_group" type="text" maxLength={3} className={`${inputFieldStyle} uppercase`} value={BloodGroup} onChange={e => updateFields({ BloodGroup: e.target.value })} required />
+                    <input name="blood_group" type="text" placeholder="AB+, O+, A-" maxLength={3} className={`${inputFieldStyle}`} value={BloodGroup} onChange={e => updateFields({ BloodGroup: e.target.value })} required />
                 </div>
                 <div>
                     <label htmlFor="faculty_of">Faculty of{mandateComponent} : </label>
@@ -63,8 +63,8 @@ export default function BasicForm({
                 </div>
                 <div>
                     <label htmlFor="course">Course/Specialization{mandateComponent} : </label>
-                    <select name="course" className={`${inputFieldStyle} ${selectStyle}`} value={Course || "default"} onChange={e => updateFields({ Course: e.target.value })} required>
-                        <option value="default" disabled>Select</option>
+                    <select name="course" className={`${inputFieldStyle} ${selectStyle}`} value={Course || ""} onChange={e => updateFields({ Course: e.target.value })} required>
+                        <option value="" disabled>Select</option>
                         <option value="biotech">Biotechnology</option>
                         <option value="cse">CSE</option>
                         <option value="cse_aiml">CSE-AIML</option>
@@ -85,7 +85,7 @@ export default function BasicForm({
                 </div>
                 <div>
                     <label htmlFor="student_phone_no">Student Mobile No.{mandateComponent} : </label>
-                    <input name="student_phone_no" type="number" className={inputFieldStyle} value={StudentMobileNumber} onChange={e => updateFields({ StudentMobileNumber: e.target.value })} required />
+                    <input name="student_phone_no" type="text" className={inputFieldStyle} value={StudentMobileNumber} pattern=".{10,}" onChange={e => updateFields({ StudentMobileNumber: e.target.value })} required />
                 </div>
                 <div>
                     <label htmlFor="student_email">Student Email Id{mandateComponent} : </label>
@@ -93,16 +93,16 @@ export default function BasicForm({
                 </div>
                 <div>
                     <label htmlFor="student_aadhar_no">Student Aadhar No.{mandateComponent} : </label>
-                    <input name="student_aadhar_no" type="number" className={inputFieldStyle} value={StudentAadhar} onChange={e => updateFields({ StudentAadhar: e.target.value })} required />
+                    <input name="student_aadhar_no" type="text" className={inputFieldStyle} value={StudentAadhar} pattern=".{12,}" onChange={e => updateFields({ StudentAadhar: e.target.value })} required />
                 </div>
                 <div>
                     <label htmlFor="medium_of_instruction">Medium of Instruction in HSC{mandateComponent} : </label>
-                    <input name="medium_of_instruction" type="text" className={inputFieldStyle} value={MediumOfInstruction} onChange={e => updateFields({ MediumOfInstruction: e.target.value })} required />
+                    <input name="medium_of_instruction" type="text" className={inputFieldStyle} value={MediumOfInstruction} pattern="[a-zA-Z ]*$" onChange={e => updateFields({ MediumOfInstruction: e.target.value })} required />
                 </div>
                 <div className="flex gap-2">
                     <p>Student is{mandateComponent} : </p>
-                    <select name="student_is" className={`${inputFieldStyle} ${selectStyle}`} value={StudentIs || "default"} onChange={e => updateFields({ StudentIs: e.target.value })} required>
-                        <option value="default" disabled>Select</option>
+                    <select name="student_is" className={`${inputFieldStyle} ${selectStyle}`} value={StudentIs || ""} onChange={e => updateFields({ StudentIs: e.target.value })} required>
+                        <option value="" disabled>Select</option>
                         <option value="day_scholar">Day Scholar</option>
                         <option value="hosteller">Hosteller</option>
                     </select>

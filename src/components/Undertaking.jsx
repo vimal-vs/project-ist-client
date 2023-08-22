@@ -4,9 +4,8 @@ export default function Undertaking({
   updateDocuments
 }) {
 
-  const fileStyle = "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-900 file:text-white hover:file:bg-yellow-500 w-28 overflow-hidden";
+  const fileStyle = "block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-900 file:text-white hover:file:bg-yellow-500 w-[105px]";
   const mandateComponent = <span className="text-red-500 text-lg">&#42;</span>;
-
   const fileNameStyle = "font-semibold text-blue-900 text-sm italic";
 
   const studentPDF = () => {
@@ -17,11 +16,9 @@ export default function Undertaking({
     window.open("/parent_affidavit.pdf", "_blank")
   };
 
-
-
   return (
     <div className="flex flex-col gap-6 pb-8">
-      <h2 className="text-center uppercase font-semibold text-xl underline underline-offset-4 py-4 md:hidden">Undertaking</h2>
+      <h2 className="text-center uppercase font-semibold text-xl underline underline-offset-4 py-4 decoration-yellow-500">Undertaking</h2>
       <div className="flex flex-col gap-2">
         <p className="w-fit font-medium">Download the following files, fill the documents with relevant information.</p>
         <p className="w-fit font-medium">Upload scanned copy of the documents respectively.</p>
@@ -33,7 +30,7 @@ export default function Undertaking({
             <button onClick={studentPDF} className="w-fit underline text-blue-600">Click here to download</button>
           </div>
           <div className="flex flex-col gap-3">
-            <input type="file" accept=".pdf" name="by_student" className={fileStyle} onChange={e => updateDocuments({ AffidavitByStudent: e.target.files[0] })} />
+            <input type="file" accept=".pdf" name="by_student" className={fileStyle} onChange={e => updateDocuments({ AffidavitByStudent: e.target.files[0] })} required={AffidavitByStudent?.length === 0 ? true : false} />
             <p className={fileNameStyle}>{AffidavitByStudent?.name}</p>
           </div>
         </div>
@@ -43,11 +40,11 @@ export default function Undertaking({
             <button onClick={parentPDF} className="w-fit underline text-blue-600">Click here to download</button>
           </div>
           <div className="flex flex-col gap-3">
-            <input type="file" accept=".pdf" name="by_parent" className={fileStyle} onChange={e => updateDocuments({ AffidavitByParent: e.target.files[0] })} />
+            <input type="file" accept=".pdf" name="by_parent" className={fileStyle} onChange={e => updateDocuments({ AffidavitByParent: e.target.files[0] })} required={AffidavitByParent?.length === 0 ? true : false} />
             <p className={fileNameStyle}>{AffidavitByParent?.name}</p>
           </div>
         </div>
       </div>
-    </div >
+    </div>
   )
 };

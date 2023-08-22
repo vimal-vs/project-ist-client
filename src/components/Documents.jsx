@@ -9,7 +9,7 @@ export default function Documents({
   updateDocuments
 }) {
 
-  const fileStyle = "block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-900 file:text-white hover:file:bg-yellow-500 w-28 overflow-hidden";
+  const fileStyle = "block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-900 file:text-white hover:file:bg-yellow-500 w-[105px]";
   const mandateComponent = <span className="text-red-500 text-lg">&#42;</span>;
   const fileNameStyle = "font-semibold text-blue-900 text-sm italic";
 
@@ -19,18 +19,19 @@ export default function Documents({
 
   return (
     <div className="flex flex-col gap-2 pb-8 p-2">
-      <h2 className="text-center uppercase font-semibold text-xl underline underline-offset-4 py-4 md:hidden">Documents</h2>
-      <p className="w-fit font-medium">Upload the respective documents carefully and make sure that the file is of .PDF and file size is less than 2MB.</p>
-      <button onClick={redirectPDF} className="mt-2 w-fit underline text-blue-600 text-sm md:text-base">Link to Compress your PDFs down to 2MB</button>
+      <h2 className="text-center uppercase font-semibold text-xl underline underline-offset-4 py-4 decoration-yellow-500">Document Submission</h2>
+      <p className="w-fit font-medium">Upload the respective documents carefully.</p>
+      <p className="w-fit font-medium">The file&#40;s&#41; should be of type .PDF and file size should be less than 2MB.</p>
+      <button onClick={redirectPDF} className="mt-2 w-fit underline text-blue-900 text-sm md:text-base">Link to compress your PDFs</button>
       <div className="flex flex-wrap gap-8 py-10">
         <div className="flex flex-col gap-3 w-56">
           <label htmlFor="transfer_certificate">Transfer Certificate (HSC){mandateComponent}: </label>
-          <input type="file" name="transfer_certificate" accept=".pdf" className={fileStyle} onChange={e => updateDocuments({ TransferCertificate: e.target.files[0] })} />
+          <input type="file" name="transfer_certificate" accept=".pdf" className={fileStyle} onChange={e => updateDocuments({ TransferCertificate: e.target.files[0] })} autoFocus required={TransferCertificate?.length === 0 ? true : false} />
           <p className={fileNameStyle}>{TransferCertificate?.name}</p>
         </div>
         <div className="flex flex-col gap-3 w-56">
           <label htmlFor="sslc_certificate">SSLC Certificate{mandateComponent}: </label>
-          <input type="file" name="sslc_certificate" accept=".pdf" className={fileStyle} onChange={e => updateDocuments({ SSLCCertificate: e.target.files[0] })} />
+          <input type="file" name="sslc_certificate" accept=".pdf" className={fileStyle} onChange={e => updateDocuments({ SSLCCertificate: e.target.files[0] })} required={SSLCCertificate?.length === 0 ? true : false} />
           <p className={fileNameStyle}>{SSLCCertificate?.name}</p>
         </div>
         <div className="flex flex-col gap-3 w-56">
@@ -40,7 +41,7 @@ export default function Documents({
         </div>
         <div className="flex flex-col gap-3 w-56">
           <label htmlFor="hsc_second_year">HSC - 2nd year{mandateComponent}:  </label>
-          <input type="file" name="hsc_second_year" accept=".pdf" className={fileStyle} onChange={e => updateDocuments({ HSCSecondYearCertificate: e.target.files[0] })} />
+          <input type="file" name="hsc_second_year" accept=".pdf" className={fileStyle} onChange={e => updateDocuments({ HSCSecondYearCertificate: e.target.files[0] })} required={HSCSecondYearCertificate?.length === 0 ? true : false} />
           <p className={fileNameStyle}>{HSCSecondYearCertificate?.name}</p>
         </div>
         <div className="flex flex-col gap-3 w-56">
@@ -55,7 +56,7 @@ export default function Documents({
         </div>
         <div className="flex flex-col gap-3 w-56">
           <label htmlFor="provisional_allotment_letter">Provisional Allotment Letter{mandateComponent}:</label>
-          <input type="file" name="provisional_allotment_letter" accept=".pdf" className={fileStyle} onChange={e => updateDocuments({ ProvisionalAllotmentLetter: e.target.files[0] })} />
+          <input type="file" name="provisional_allotment_letter" accept=".pdf" className={fileStyle} onChange={e => updateDocuments({ ProvisionalAllotmentLetter: e.target.files[0] })} required={ProvisionalAllotmentLetter?.length === 0 ? true : false} />
           <p className={fileNameStyle}>{ProvisionalAllotmentLetter?.name}</p>
         </div>
       </div>
