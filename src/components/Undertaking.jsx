@@ -8,26 +8,17 @@ export default function Undertaking({
   const mandateComponent = <span className="text-red-500 text-lg">&#42;</span>;
   const fileNameStyle = "font-semibold text-blue-900 text-sm italic";
 
-  const studentPDF = () => {
-    window.open("/student_affidavit.pdf", "_blank")
-  };
-
-  const parentPDF = () => {
-    window.open("/parent_affidavit.pdf", "_blank")
-  };
 
   return (
-    <div className="flex flex-col gap-6 pb-8">
+    <div className="flex flex-col gap-4 pb-10">
       <h2 className="text-center uppercase font-semibold text-xl underline underline-offset-4 py-4 decoration-yellow-500">Undertaking</h2>
       <div className="flex flex-col gap-2">
-        <p className="w-fit font-medium">Download the following files, fill the documents with relevant information.</p>
         <p className="w-fit font-medium">Upload scanned copy of the documents respectively.</p>
       </div>
       <div className="flex flex-wrap gap-12 py-6">
         <div className="flex flex-col gap-6 w-56">
           <div className="flex flex-col gap-1">
             <label htmlFor="by_student" className="font-semibold">Affidavit by Student{mandateComponent}: </label>
-            <button onClick={studentPDF} className="w-fit underline text-blue-600">Click here to download</button>
           </div>
           <div className="flex flex-col gap-3">
             <input type="file" accept=".pdf" name="by_student" className={fileStyle} onChange={e => updateDocuments({ AffidavitByStudent: e.target.files[0] })} required={AffidavitByStudent?.length === 0 ? true : false} />
@@ -37,7 +28,6 @@ export default function Undertaking({
         <div className="flex flex-col gap-6 w-56">
           <div className="flex flex-col gap-1">
             <label htmlFor="by_parent" className="font-semibold">Affidavit by Parent{mandateComponent}: </label>
-            <button onClick={parentPDF} className="w-fit underline text-blue-600">Click here to download</button>
           </div>
           <div className="flex flex-col gap-3">
             <input type="file" accept=".pdf" name="by_parent" className={fileStyle} onChange={e => updateDocuments({ AffidavitByParent: e.target.files[0] })} required={AffidavitByParent?.length === 0 ? true : false} />

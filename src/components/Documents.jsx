@@ -13,17 +13,12 @@ export default function Documents({
   const mandateComponent = <span className="text-red-500 text-lg">&#42;</span>;
   const fileNameStyle = "font-semibold text-blue-900 text-sm italic";
 
-  const redirectPDF = () => {
-    window.open("https://pdfcompressor.com", "_blank")
-  };
-
   return (
     <div className="flex flex-col gap-2 pb-8 p-2">
-      <h2 className="text-center uppercase font-semibold text-xl underline underline-offset-4 py-4 decoration-yellow-500">Document Submission</h2>
+      <h2 className="text-center uppercase font-semibold text-xl underline underline-offset-4 py-4 decoration-yellow-500">Documents</h2>
       <p className="w-fit font-medium">Upload the respective documents carefully.</p>
-      <p className="w-fit font-medium">The file&#40;s&#41; should be of type .PDF and file size should be less than 2MB.</p>
-      <button onClick={redirectPDF} className="mt-2 w-fit underline text-blue-900 text-sm md:text-base">Link to compress your PDFs</button>
-      <div className="flex flex-wrap gap-8 py-10">
+      <p className="w-fit">The file&#40;s&#41; should be of type .PDF and file size should be less than 2MB.</p>
+      <div className="flex flex-wrap gap-10 py-10">
         <div className="flex flex-col gap-3 w-56">
           <label htmlFor="transfer_certificate">Transfer Certificate (HSC){mandateComponent}: </label>
           <input type="file" name="transfer_certificate" accept=".pdf" className={fileStyle} onChange={e => updateDocuments({ TransferCertificate: e.target.files[0] })} autoFocus required={TransferCertificate?.length === 0 ? true : false} />

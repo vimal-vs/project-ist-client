@@ -30,6 +30,7 @@ const FORM_DATA = {
   Nationality: "",
   Religion: "",
   Community: "",
+  MotherTongue: "",
   IndentificationMark1: "",
   IndentificationMark2: "",
   AllergicTo: "",
@@ -54,7 +55,7 @@ const FORM_DATA = {
 
 const FORM_DOCUMENTS = {
   StudentPhoto: [],
-  FatherGaurdianPhoto: [],
+  FatherGuardianPhoto: [],
   MotherPhoto: [],
   StudentSignature: [],
   ParentSignature: [],
@@ -113,7 +114,6 @@ export default function Home() {
   };
 
   const backBtnStyle = "bg-white text-slate-700 uppercase py-2 px-4 rounded-xl font-semibold cursor-pointer border-2 border-slate-700 hover:bg-slate-700 hover:text-white transition duration-200 ease-in-out";
-
   const nextBtnStyle = "text-green-500 hover:bg-green-500 hover:text-white border-2 border-green-500 uppercase py-2 px-4 rounded-xl font-semibold cursor-pointer transition duration-200 ease-in-out";
 
   return (

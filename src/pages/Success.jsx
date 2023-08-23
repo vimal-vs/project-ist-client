@@ -7,7 +7,7 @@ export default function Success() {
             <Confetti numberOfPieces={300} recycle={false} gravity={0.1} className='w-full' />
             <img src={SuccessImg} alt="src" />
             <p className=' md:text-3xl lg:text-4xl'>Form has been submitted successfully <span className='text-xl md:text-3xl'>🥳</span></p>
-            <p className=''>For any futher inqueries, please contact Admission Office.</p>
+            <p className='text-sm md:text-base'>For any futher inqueries, please contact Admission Office.</p>
         </div>
     )
 };

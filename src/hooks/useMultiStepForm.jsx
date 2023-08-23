@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 export default function useMultiStepForm(steps) {
 
@@ -9,6 +9,8 @@ export default function useMultiStepForm(steps) {
             if (i >= steps.length - 1) return i;
             return i + 1;
         })
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
     };
 
     const back = () => {
@@ -16,6 +18,8 @@ export default function useMultiStepForm(steps) {
             if (i <= 0) return i;
             return i - 1;
         })
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
     };
 
     const goTo = (i) => {

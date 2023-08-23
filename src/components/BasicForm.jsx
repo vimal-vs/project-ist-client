@@ -30,7 +30,7 @@ export default function BasicForm({
             <div className="flex flex-col justify-center gap-6 py-6 mb-10">
                 <div>
                     <label htmlFor="student_name">Name{mandateComponent} : </label>
-                    <input name="student_name" type="text" className={inputFieldStyle} value={StudentName} pattern="[a-zA-Z ]*$" onChange={e => updateFields({ StudentName: e.target.value })} autoFocus required />
+                    <input name="student_name" type="text" className={inputFieldStyle} value={StudentName} pattern="[a-zA-Z. ]*$" onChange={e => updateFields({ StudentName: e.target.value })} autoFocus required />
                 </div>
                 <div>
                     <label htmlFor="gender">Gender{mandateComponent} : </label>

@@ -4,6 +4,7 @@ export default function PersonalForm({
   Nationality,
   Religion,
   Community,
+  MotherTongue,
   IndentificationMark1,
   IndentificationMark2,
   AllergicTo,
@@ -26,7 +27,7 @@ export default function PersonalForm({
   PermanentPincode,
   updateFields,
   StudentPhoto,
-  FatherGaurdianPhoto,
+  FatherGuardianPhoto,
   MotherPhoto,
   StudentSignature,
   ParentSignature,
@@ -38,12 +39,8 @@ export default function PersonalForm({
   const mandateComponent = <span className="text-red-500 text-lg">&#42;</span>;
   const fileNameStyle = "font-semibold text-blue-900 text-sm italic";
 
-  const redirectJPG = () => {
-    window.open("https://compressjpeg.com", "_blank")
-  };
-
   const [showStudentPhoto, setShowStudentPhoto] = useState();
-  const [showFatherGaurdianPhoto, setShowFatherGaurdianPhoto] = useState("");
+  const [showFatherGuardianPhoto, setShowFatherGuardianPhoto] = useState("");
   const [showMotherPhoto, setShowMotherPhoto] = useState("");
   const [showStudentSignature, setShowStudentSignature] = useState("");
   const [showParentSignature, setShowParentSignature] = useState("");
@@ -68,7 +65,7 @@ export default function PersonalForm({
           <label htmlFor="nationality">Nationality{mandateComponent} : </label>
           <select name="nationality" className={inputFieldStyle} value={Nationality || ""} pattern="[a-zA-Z ]*$" onChange={e => updateFields({ Nationality: e.target.value })} autoFocus required>
             <option value="" disabled>Select</option>
-            <option value="india">India</option>
+            <option value="india">Indian</option>
           </select>
         </div>
         <div>
@@ -87,6 +84,10 @@ export default function PersonalForm({
             <option value="st">ST</option>
             <option value="sca">SCA</option>
           </select>
+        </div>
+        <div>
+          <label htmlFor="mother_tongue">Mother Tongue{mandateComponent} : </label>
+          <input name="mother_tongue" type="text" className={inputFieldStyle} value={MotherTongue} onChange={e => updateFields({ MotherTongue: e.target.value })} required />
         </div>
         <div>
           <label htmlFor="identification_mark_one">Identification Mark 1{mandateComponent} : </label>
@@ -184,7 +185,6 @@ export default function PersonalForm({
         <div className="flex flex-col gap-4 mt-6">
           <div className="flex flex-col gap-2">
             <p className="w-fit font-medium">Upload the respective photos and make sure that the file is of .JPG and file size is less than 2MB.</p>
-            <button onClick={redirectJPG} className="w-fit text-start mt-2 underline text-blue-900 text-sm md:text-base">Link to compress your JPGs</button>
           </div>
           <div className="flex flex-wrap gap-10 pt-6">
             <div className="flex flex-col gap-5 w-56">
@@ -197,12 +197,12 @@ export default function PersonalForm({
               </div>
             </div>
             <div className="flex flex-col gap-5 w-56">
-              <label htmlFor="father_photo">Father&apos;s/Gaurdian&apos;s Photo{mandateComponent} : </label>
+              <label htmlFor="father_photo">Father&apos;s/Guardian&apos;s Photo{mandateComponent} : </label>
               <div className="flex flex-col gap-2">
                 <input type="file" name="father_photo" accept=".jpg" className={fileStyle}
-                  onChange={e => { updateDocuments({ FatherGaurdianPhoto: e.target.files[0] }); (e.target.files[0]) ? setShowFatherGaurdianPhoto(URL.createObjectURL(e.target.files[0])) : setShowFatherGaurdianPhoto("") }} required={FatherGaurdianPhoto?.length === 0 ? true : false} />
-                <img src={showFatherGaurdianPhoto} alt="" />
-                <p className={fileNameStyle}>{FatherGaurdianPhoto?.name}</p>
+                  onChange={e => { updateDocuments({ FatherGuardianPhoto: e.target.files[0] }); (e.target.files[0]) ? setShowFatherGuardianPhoto(URL.createObjectURL(e.target.files[0])) : setShowFatherGuardianPhoto("") }} required={FatherGuardianPhoto?.length === 0 ? true : false} />
+                <img src={showFatherGuardianPhoto} alt="" />
+                <p className={fileNameStyle}>{FatherGuardianPhoto?.name}</p>
               </div>
             </div>
             <div className="flex flex-col gap-5 w-56">
@@ -224,7 +224,7 @@ export default function PersonalForm({
               </div>
             </div>
             <div className="flex flex-col gap-5 w-56">
-              <label htmlFor="parent_signature">Parent&apos;s/Gaurdian&apos;s Signature{mandateComponent} : </label>
+              <label htmlFor="parent_signature">Parent&apos;s/Guardian&apos;s Signature{mandateComponent} : </label>
               <div className="flex flex-col gap-2">
                 <input type="file" name="parent_signature" accept=".jpg" className={fileStyle}
                   onChange={e => { updateDocuments({ ParentSignature: e.target.files[0] }); (e.target.files[0]) ? setShowParentSignature(URL.createObjectURL(e.target.files[0])) : setShowParentSignature("") }} required={ParentSignature?.length === 0 ? true : false} />
