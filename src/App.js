@@ -123,13 +123,13 @@ export default function Home() {
         <div className="container horizontal mt-5">
           <Progress steps={progress} curStep={currentStepIndex} />
         </div>
-        <div className="mt-2 px-6 md:mt-20 md:px-10" onSubmit={handleSubmit}>
+        <form className="mt-2 px-6 md:mt-20 md:px-10" onSubmit={handleSubmit}>
           {step}
           <div className="flex justify-around pb-6">
             {!isFirstStep && <button type="button" onClick={back} className={backBtnStyle}>Back</button>}
-            {!isLastStep && <button type="submit" onClick={next} className={nextBtnStyle}>{isFirstStep ? "Proceed to form" : "Next"}</button>}
+            {!isLastStep && <button type="submit" className={nextBtnStyle}>{isFirstStep ? "Proceed to form" : "Next"}</button>}
           </div>
-        </div>
+        </form>
       </div>
     </>
   )
