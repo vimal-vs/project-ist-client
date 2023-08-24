@@ -141,8 +141,8 @@ export default function Instructions() {
         <div className="flex flex-col gap-6 py-8 border-y-2 mt-4">
           <h3 className="font-medium text-lg">Affidavit by Student & Parent :</h3>
           <div className="flex flex-col text-sm md:text-base gap-1">
-            <p>{mandateComponent} You will be requiring to upload scanned copy of the respective documents.</p>
-            <p>Download the following files, Take a print copy and fill out the necessary details.</p>
+            <p>{mandateComponent} You will be requiring to upload scanned copy of the two Affidavit documents.</p>
+            <p>Download the following files, take a print copy and fill out the necessary details.</p>
           </div>
           <div className="flex flex-col gap-4 md:flex-row md:gap-14">
             <div>

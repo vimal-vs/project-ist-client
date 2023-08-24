@@ -34,7 +34,7 @@ export default function PersonalForm({
   updateDocuments
 }) {
 
-  const fileStyle = "block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-900 file:text-white hover:file:bg-yellow-500 w-[104px]";
+  const fileStyle = "block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-900 file:text-white hover:file:bg-yellow-500 overflow-hidden w-[103px]";
   const inputFieldStyle = "px-2 py-[1px] border-2 border-slate-200 rounded-md";
   const mandateComponent = <span className="text-red-500 text-lg">&#42;</span>;
   const fileNameStyle = "font-semibold text-blue-900 text-sm italic";
@@ -155,12 +155,18 @@ export default function PersonalForm({
           </div>
           <div>
             <label htmlFor="sibling_status">Current Status : </label>
-            <input name="sibling_status" type="text" className={inputFieldStyle} value={SiblingStatus} onChange={e => updateFields({ SiblingStatus: e.target.value })} />
+            <select name="sibling_status" className={inputFieldStyle} value={SiblingStatus || ""} onChange={e => updateFields({ SiblingStatus: e.target.value })} required>
+              <option value="" disabled>Select</option>
+              <option value="working">Working</option>
+              <option value="studying">Studying</option>
+              <option value="other">Other</option>
+            </select>
           </div>
-          <div>
-            <label htmlFor="sibling_education">Institution Name : </label>
-            <input name="sibling_education" type="text" className={inputFieldStyle} value={SiblingInstitutionName} onChange={e => updateFields({ SiblingInstitutionName: e.target.value })} />
-          </div>
+          {SiblingStatus !== "" &&
+            <div>
+              <label htmlFor="sibling_education">{SiblingStatus === "studying" && "Institution Name : "}{SiblingStatus === "working" && "Organisation Name : "}{SiblingStatus === "other" && "Mention : "}</label>
+              <input name="sibling_education" type="text" className={inputFieldStyle} value={SiblingInstitutionName} onChange={e => updateFields({ SiblingInstitutionName: e.target.value })} />
+            </div>}
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="address_communication" className="w-fit">Address for Communication{mandateComponent} : </label>
@@ -170,17 +176,21 @@ export default function PersonalForm({
           <label htmlFor="pin_code_communication">Pin Code{mandateComponent} : </label>
           <input name="pin_code_communication" type="number" className={inputFieldStyle} value={CommunicationPincode} onChange={e => updateFields({ CommunicationPincode: e.target.value })} required />
         </div>
-        <div className="flex gap-2">
-          <input type="checkbox" name="same_address" onChange={handleSameAddress} />
-          <label htmlFor="same_address">Same as Address for Communication</label>
-        </div>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="address_permanent" className="w-fit">Permanent Address{mandateComponent} : </label>
-          <textarea name="address_permanent" className="border-2 md:w-2/3 lg:w-1/3" value={AddressPermanent} onChange={e => updateFields({ AddressPermanent: e.target.value })}></textarea>
-        </div>
-        <div>
-          <label htmlFor="pin_code_permanent">Pin Code{mandateComponent} : </label>
-          <input name="pin_code_permanent" type="number" className={inputFieldStyle} value={PermanentPincode} onChange={e => updateFields({ PermanentPincode: e.target.value })} required />
+        <div className="flex flex-col gap-2 py-6">
+          <div className="flex gap-2">
+            <input type="checkbox" name="same_address" onChange={handleSameAddress} />
+            <label htmlFor="same_address" className="text-sm md:text-base">Same as Address for Communication</label>
+          </div>
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-2">
+              <label htmlFor="address_permanent" className="w-fit">Permanent Address{mandateComponent} : </label>
+              <textarea name="address_permanent" className="border-2 md:w-2/3 lg:w-1/3" value={AddressPermanent} onChange={e => updateFields({ AddressPermanent: e.target.value })}></textarea>
+            </div>
+            <div>
+              <label htmlFor="pin_code_permanent">Pin Code{mandateComponent} : </label>
+              <input name="pin_code_permanent" type="number" className={inputFieldStyle} value={PermanentPincode} onChange={e => updateFields({ PermanentPincode: e.target.value })} required />
+            </div>
+          </div>
         </div>
         <div className="flex flex-col gap-4 mt-6">
           <div className="flex flex-col gap-2">

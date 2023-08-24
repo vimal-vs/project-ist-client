@@ -40,7 +40,7 @@ export default function Preview({ data, documents }) {
     'Mother Mail Id',
     'Sibling Name',
     'Sibling Current Status',
-    'Sibling Institution Name',
+    'Sibling Study/Work Place',
     'Address for Communication',
     'Pin Code: Address for Communication',
     'Permanent Address',
@@ -114,7 +114,7 @@ export default function Preview({ data, documents }) {
 
     setTimeout(() => {
       setChangeButton(false);
-    }, 1000);
+    }, 2000);
 
     const regNumber = data.ApplicationNumber;
 

@@ -4,7 +4,7 @@ export default function Undertaking({
   updateDocuments
 }) {
 
-  const fileStyle = "block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-900 file:text-white hover:file:bg-yellow-500 w-[105px]";
+  const fileStyle = "block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-900 file:text-white hover:file:bg-yellow-500 overflow-hidden w-[103px]";
   const mandateComponent = <span className="text-red-500 text-lg">&#42;</span>;
   const fileNameStyle = "font-semibold text-blue-900 text-sm italic";
 
