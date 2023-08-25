@@ -131,7 +131,6 @@ export default function Preview({ data, documents }) {
                 window.location.href = '/success';
               }
               else alert("Register Number already exists!");
-              console.log(res);
             })
             .catch(err => {
               alert(err);
